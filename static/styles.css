@@ -22,16 +22,7 @@ h5{
     margin: 5px 10px 5px 10px !important;
 }
 
-button {
-    font-size: calc(13px + (16 - 13) * ((100vw - 360px) / (1600 - 320))) !important;
-    border-radius:0 !important;
-    padding-left:  calc(20px + (28 - 20) * ((100vw - 360px) / (1600 - 360))) !important;
-    padding-right: calc(20px + (28 - 20) * ((100vw - 360px) / (1600 - 360))) !important;
-    padding-top:  calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important;
-    padding-bottom:   calc(10px + (12 - 10) * ((100vw - 360px) / (1600 - 360))) !important;
-    /* background-color:#383431 !important; */
-    border:none !important;
- }
+
 
  button:focus {
      -moz-box-shadow: none !important;
@@ -41,10 +32,6 @@ button {
 
  }
 
-li{
-    margin-top: 8px ;
-    margin-bottom: 8px ;
-}
 
 /* input::-webkit-input-placeholder {
   padding-left: 5px !important;
@@ -80,15 +67,24 @@ input:focus {
     width: calc(30px + 6 * ((100vw - 320px) / 680)) !important;
  }
 
+ li{
+     margin-top: 8px ;
+     margin-bottom: 8px ;
+     color:rgb(196, 193, 193) !important;
+ }
  li:first-child {
     font-size:  18px !important;
     font-weight: bold;
-}
-
-footer{
-    /* background-color:#383431 !important; */
     color:#FFFFFF !important;
 }
+/* li:not(:first-child) {
+    color:rgb(196, 193, 193) !important;
+} */
+
+/* footer{
+    background-color:#383431 !important;
+    color:#FFFFFF !important;
+} */
 
 small{
     font-size: calc(12px + (14 - 12) * ((100vw - 360px) / (1600 - 360))) !important;
@@ -102,14 +98,4 @@ p{
 .social{
     position: relative;
     left: -10px;
-}
-
-.Subscribe{
-    /* background-color:#FFFFFF !important; */
-    color: #383431 !important;
-    font-weight: bold ;
-}
-
-li:not(:first-child) {
-    color:rgb(196, 193, 193) !important;
 }
