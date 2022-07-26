@@ -1,5 +1,5 @@
 import os
-
+import re
 from sqlalchemy.exc import IntegrityError
 from flask import Flask, render_template, redirect, url_for, flash, abort, request
 from flask_bootstrap import Bootstrap
@@ -21,7 +21,11 @@ gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=Fa
                     base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL2', 'sqlite:///blog.db')
+uri = os.getenv("DATABASE_URL", 'sqlite:///blog.db')  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
+app.config['SQLALCHEMY_DATABASE_URI'] = uri
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
