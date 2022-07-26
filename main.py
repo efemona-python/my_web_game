@@ -1,4 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, flash, abort
+import os
+
+from sqlalchemy.exc import IntegrityError
+from flask import Flask, render_template, redirect, url_for, flash, abort, request
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from datetime import date
@@ -11,14 +14,14 @@ from forms import LoginForm, RegisterForm, CreatePostForm, CommentForm
 from flask_gravatar import Gravatar
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
+app.config['SECRET_KEY'] = os.environ.get('SECRETE_KEY')
 ckeditor = CKEditor(app)
 Bootstrap(app)
 gravatar = Gravatar(app, size=100, rating='g', default='retro', force_default=False, force_lower=False, use_ssl=False,
                     base_url=None)
 
 ##CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL2', 'sqlite:///blog.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 login_manager = LoginManager()
@@ -47,16 +50,43 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(100), unique=True)
     password = db.Column(db.String(100))
     name = db.Column(db.String(100))
-    posts = relationship("BlogPost", back_populates="author")
-    comments = relationship("Comment", back_populates="comment_author")
 
 
-db.create_all()
+class Subscriber(db.Model):
+    __tablename__ = "subscribers"
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(100), unique=True)
+
+
+# db.drop_all()
+# db.create_all()
 
 
 @app.route('/')
 def home():
     return render_template("index.html")
+
+
+@app.route('/subscribe', methods=['GET', 'POST'])
+def subscribe():
+    if request.method == "POST":
+        # flash subscribe successful message
+        new_subscriber = Subscriber(email=request.form.get('email'))
+        db.session.add(new_subscriber)
+        try:
+            db.session.commit()
+        except IntegrityError as e:
+            db.session.rollback()
+            # flash user already registered
+
+    return render_template("index.html")
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    register_form = RegisterForm()
+
+    return render_template("register.html", form=register_form)
 
 
 if __name__ == "__main__":
