@@ -72,11 +72,12 @@ input:focus {
      margin-bottom: 8px ;
      color:rgb(196, 193, 193) !important;
  }
- li:first-child, .subscribe-text{
+footer li:first-child, .subscribe-text{
     font-size:  18px !important;
     font-weight: bold;
     color:#FFFFFF !important;
 }
+
 /* li:not(:first-child) {
     color:rgb(196, 193, 193) !important;
 } */
