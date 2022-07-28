@@ -1,10 +1,81 @@
-{% extends "base.html"}
+{% extends "base.html" %}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block content %}
 {% include "header.html" %}
 
-{{ wtf.quick_form(form, novalidate=True, button_map={"submit": "primary"}) }}
+<div class="registration-form">
+  <form action="{{url_for('register')}}" method="post" class="bg-dark" role="form" novalidate>
+      <h3 class="text-center">Create your account</h3>
+    {{ form.csrf_token() }}
+    <div class="row">
+      <div class="form-group col-md-6">
+        {{ wtf.form_field(form.name, class="form-control form-control", placeholder='First & Last name') }}
+      </div>
+    </div>
+
+    <div class="form-group">
+      {{ wtf.form_field(form.email, type='email', class="form-control form-control", placeholder='Email Address') }}
+    </div>
+
+    <div class="form-group">
+      {{ wtf.form_field(form.password, type='password', class="form-control form-control", placeholder='Password') }}
+      {{ wtf.form_field(form.confirm, type='password', class="form-control form-control", placeholder='Confirm Password') }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <div class="social-media">
+            <h5>Sign up with social media</h5>
+            <div class="social-icons">
+                <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
+                <a href="#"><i class="icon-social-google" title="Google"></i></a>
+                <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
+            </div>
+        </div>
+  <p>Open one account - All humans working for you.</p>
+
+</div>
+<!--
+
+  <body>
+    <div class="registration-form">
+        <form>
+            <div class="form-icon">
+                <span><i class="icon icon-user"></i></span>
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control form-control" id="username" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control form-control" id="password" placeholder="Password">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="phone-number" placeholder="Phone Number">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control item" id="birth-date" placeholder="Birth Date">
+            </div>
+            <div class="form-group">
+                <button type="button" class="btn btn-block create-account">Create Account</button>
+            </div>
+        </form>
+        <div class="social-media">
+            <h5>Sign up with social media</h5>
+            <div class="social-icons">
+                <a href="#"><i class="icon-social-facebook" title="Facebook"></i></a>
+                <a href="#"><i class="icon-social-google" title="Google"></i></a>
+                <a href="#"><i class="icon-social-twitter" title="Twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="assets/js/script.js"></script>
+-->
 
 
 {% include "footer.html" %}
-{% endblock content%}
+{% endblock content %}

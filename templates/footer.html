@@ -43,6 +43,15 @@
         <form action="{{ url_for('subscribe') }}" method="post">
           <div class="form-group ">
             <label for="email" class="mb-3 subscribe-text"><b>Subscribe to our newsletter and Get 10% off</b></label>
+            <!--flashing messages-->
+                {% with messages = get_flashed_messages(category_filter=["subscription"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="small">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <!---->
             <input type="email" class="form-control form-control-lg" placeholder="Enter email" id="email" name="email" required="required">
             <button type="submit" class="btn btn-primary btn-lg btn-block my-2 Subscribe mt-4 mb-3 center-align">Subscribe</button>
           </div>

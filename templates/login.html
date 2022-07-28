@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block content %}
+{% include "header.html" %}
+
+    <div class="login-dark">
+        <form action="{{url_for('login')}}" method="post" class="bg-dark" role="form" novalidate>
+            <h2 class="sr-only">Login Form</h2>
+            <h2 class="text-center">Login</h2>
+            <div class="illustration"><i class="icon ion-ios-locked-outline"></i></div>
+            <div class="form-group">
+                {{form.hidden_tag() }}
+                {{form.csrf_token}}
+                <!--flashing messages-->
+                {% with messages = get_flashed_messages(category_filter=["login"]) %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <p class="small">{{ message }}</p>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                <!---->
+                {{wtf.form_field(form.email, class="form-control form-control-lg" , placeholder="email") }}
+            </div>
+
+            <div class="form-group">
+                {{wtf.form_field(form.password, class="form-control form-control" , placeholder="password") }}
+            </div>
+
+            <div class="form-check">
+                {{wtf.form_field(form.remember, class="form-check-input") }}
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Log In</button>
+            </div><a href="{{url_for('reset_password')}}" class="forgot">Forgot your email or password?</a>
+        </form>
+    </div>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>-->
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>-->
+
+{% include "footer.html" %}
+{% endblock content %}
